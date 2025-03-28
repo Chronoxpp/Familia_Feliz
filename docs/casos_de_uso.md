@@ -116,25 +116,90 @@ Pós-condição:
 
 Resumo:
 
-- O usuário escolhe se deseja criar uma nova família ou participar de família existente
+- O usuário participa de uma família existente
 
 Ator Principal:
 
+- Usuário
+
 Pré-condições:
 
+- O usuário deve possuir uma conta na plataforma
+- O usuário deve possuir uma sessão de login ativa
+
 Fluxo Principal:
+
+| Usuário                                         | Sistema                                                                                                                   |
+|-------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
+| Solicita participar de uma família              | Oferece participação por código ou por link                                                                               |
+| Insere o código ou o link da família e confirma | Valida o código ou link, se o código ou link existirem redireciona o usuário para o Home do App e expira o link ou código |
 
 Fluxos Alternativos:
 
 Fluxo de Exceção:
 
+FE1 - Código ou link inválido
+
+- O sistema informa que o código ou link informado expirou ou é invalido
+- O sistema permite que o usuário tente novamente
+
 Pós-condição:
 
----
+- O usuário agora é membro de uma família.
 
 ---
 
-### CSU3 - Adicionar novo membro na família
+---
+
+### CSU3 - Criar uma família
+
+Resumo:
+
+- O usuário cria uma nova família
+
+Ator Principal:
+
+- Usuário
+
+Pré-condições:
+
+- O usuário deve estar cadastrado no sistema
+- O usuário deve possuir uma sessão de login ativa
+
+Fluxo Principal:
+
+| Usuário                           | Sistema                                                                                             |
+|-----------------------------------|-----------------------------------------------------------------------------------------------------|
+| Solicita a criação de uma família | Verifica se o usuário possui a validação do seu email e é maior de idade                            | 
+|                                   | Solicita o nome da nova família                                                                     |
+| Informa o nome e confirma         | Cria uma nova família, adiciona o usuário como responsável e redireciona o mesmo para o Home do App |
+
+Fluxos Alternativos:
+
+Fluxo de Exceção:
+
+FE1 - O usuário não validou o email da conta
+
+- O sistema informa que para criar uma família o email da conta deve ser validado e oferece ao usuário a opção de validar email
+- O usuário valida o email e tenta novamente
+
+FE2 - O usuário não é maior de idade
+
+- O sistema informa que para criar uma família é necessário ser maior de idade e cancela a operação
+
+FE3 - Erro ao criar a família
+
+- O sistema informa que ocorreu um erro inesperado ao criar a família e permite que o usuário tente novamente.
+
+Pós-condição:
+
+- Uma nova família é criada e o usuário é seu responsável
+
+---
+
+---
+
+### CSU4 - Adicionar novo membro na família
 
 Resumo:
 
@@ -142,21 +207,92 @@ Resumo:
 
 Ator Principal:
 
+- Responsável da família
+
 Pré-condições:
 
+- O usuário deve ser um dos responsáveis da família
+
 Fluxo Principal:
+
+| Responsável                                    | Sistema                                                |
+|------------------------------------------------|--------------------------------------------------------|
+| Solicita a adição de um novo membro na família | Pergunta se o novo membro é maior idade                |
+| Informa que é que maior de idade               | Gera e exibe um código de acesso válido por 1 hora     |
+| Envia o código de acesso ao novo membro        | Aguarda o novo membro utilizar o código para ingresso  |
+
+Fluxos Alternativos:
+
+FA1 - O novo membro é um menor de idade
+
+- O sistema inicia o CSU5 para cadastrar o menor de idade
+
+Fluxo de Exceção:
+
+FE1 - Erro ao gerar o código de acesso
+
+- O sistema informa que ocorreu um erro inesperado e permite que o usuário tente novamente
+
+FE2 - O usuário não é um responsável pela família
+
+- O sistema informa que apenas os responsáveis da família podem adicionar novos membros e cancela a operação
+
+Pós-condição:
+
+Um novo membro é adicionado a família do responsável
+
+---
+
+---
+
+### CSU5 - Adicionar um membro menor de idade na família
+
+Resumo:
+
+- Um responsável adiciona um menor de idade na família.
+
+Ator Principal:
+
+- Responsável da família
+
+Pré-condições:
+
+- O usuário deve ser um responsável da família
+
+Fluxo Principal:
+
+| Responsável                                       | Sistema                                                                                                                        |
+|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| Solicita a adição de um menor de idade na família | Solicita os dados do menor de idade(Nome completo, idade)                                                                      |
+| Informa os dados e confirma                       | Valida os dados e cadastra o novo membro                                                                                       | 
+|                                                   | Disponibiliza um link de uso único com validade de uma hora que deve ser utilizado pelo menor idade para participar da família |
 
 Fluxos Alternativos:
 
 Fluxo de Exceção:
 
+FE1 - O responsável informa dados inválidos
+
+- O sistema indica quais dados estão inválidos e solicita a correção
+- O responsável corrige os dados e tenta novamente
+
+FE2 - O link expira sem ser usado
+
+- O sistema deleta o link e o novo membro da base de dados
+
+FE3 - Erro ao gerar o link ou cadastrar o novo membro
+
+- O sistema informa que ocorreu um inesperado ao adicionar o novo membro e permite que o usuário tente novamente
+
 Pós-condição:
 
----
+Um novo membro menor de idade é adicionado a família
 
 ---
 
-### CSU4 - Criar lista de compras
+---
+
+### CSU6 - Criar lista de compras
 
 Resumo:
 
@@ -164,21 +300,42 @@ Resumo:
 
 Ator Principal:
 
+- Membro da família
+
 Pré-condições:
 
+- O membro deve possuir permissão para criar listas de compras
+
 Fluxo Principal:
+
+| Membro da família                                           | Sistema                                                                                                                          |
+|-------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| Solicita a criação de uma nova lista de compras             | Verifica se o usuário possui permissão para criar listas de compras                                                              |
+|                                                             | Disponibiliza um formulário para o usuário informa a descrição da lista, adicionar produtos e configurar a visibilidade da lista |
+| Informa os dados e os itens da lista, e confirma o cadastro | Valida a lista de compras, realiza o cadastro e envia uma notificação aos membros da família                                     |
 
 Fluxos Alternativos:
 
 Fluxo de Exceção:
 
+FE1 - O usuário não informa uma descrição para a lista
+
+- O sistema informa que a descrição deve ser informada
+- O usuário informa a descrição da lista e tenta novamente
+
+FE2 - Erro ao registrar a lista de compras
+
+- O sistema informa que ocorreu um erro inesperado ao criar a lista de compras e permite que o usuário tente novamente
+
 Pós-condição:
 
----
+Uma nova lista de compras é registrada e disponível para uso.
 
 ---
 
-### CSU5 - Adicionar item na lista de compras
+---
+
+### CSU7 - Adicionar item na lista de compras
 
 Resumo:
 
@@ -186,21 +343,42 @@ Resumo:
 
 Ator Principal:
 
+- Membro da família
+
 Pré-condições:
 
+- O usuário deve possuir permissão para adicionar itens na lista
+- O usuário deve estar acessando uma lista de compras
+
 Fluxo Principal:
+
+| Usuário                                      | Sistema                                                |
+|----------------------------------------------|--------------------------------------------------------|
+| Solicita a adição de um novo item na lista   | Solicita a descrição, unidade e quantidade do item     |
+| Informa os dados do item e confirma          | Valida os dados, adiciona o item e confirma a operação |
 
 Fluxos Alternativos:
 
 Fluxo de Exceção:
 
+FE1 - Informado dados inválidos
+
+- O sistema informa quais dados estão inválidos e solicita a correção
+- O usuário corrige os dados e tenta novamente
+
+FE2 - Erro ao adicionar item
+
+- O sistema informa que ocorreu um erro inesperado ao adicionar o item e permite que o usuário tente novamente.
+
 Pós-condição:
 
----
+ - Um novo item é adiciona na lista
 
 ---
 
-### CSU6 - Alterar item na lista de compras
+---
+
+### CSU8 - Alterar item na lista de compras
 
 Resumo:
 
@@ -208,21 +386,54 @@ Resumo:
 
 Ator Principal:
 
+- Membro da família
+
 Pré-condições:
+
+- O usuário deve estar acessando a lista
+- O usuário deve possuir permissão para alterar itens na lista de compras
 
 Fluxo Principal:
 
+| Usuário                                  | Sistema                                                             |
+|------------------------------------------|---------------------------------------------------------------------|
+| Solicita a alteração de um item da lista | Verifica a permissão para editar itens da lista de compras          |
+|                                          | Exibe um formulário com os dados do item e libera a alteração       |
+| Altera os dados desejados e confirma     | Valida os dados do item, aplica as alterações e confirma a operação |
+
 Fluxos Alternativos:
+
+FA1 - O usuário marca ou desmarca, um ou mais itens como comprados
+
+- O sistema permite que o usuário salve as alterações
+- O usuário confirma o salvamento
+- O sistema salva as alterações e confirma a operação
 
 Fluxo de Exceção:
 
+FE1 - Item com dados inválidos
+
+- O sistema informa quais dados estão inválidos e solicita a correção
+- O usuário corrige os dados e tenta novamente
+
+FE2 - Erro ao salvar as alterações
+
+- O sistema informa que ocorreu um erro inesperado e permite que o usuário tente novamente
+
+FE3 - O usuário não possui permissão para alterar itens da lista de compras
+
+- O sistema informa que o usuário não possui permissão para alterar itens da lista de compras e cancela a operação
+
 Pós-condição:
 
----
+- Os dados do item são alterados
+- Os itens ficam marcados ou desmarcado como comprados
 
 ---
 
-### CSU7 - Remover item da lista de compras
+---
+
+### CSU9 - Remover item da lista de compras
 
 Resumo:
 
@@ -230,21 +441,46 @@ Resumo:
 
 Ator Principal:
 
+- Membro da família
+
 Pré-condições:
+
+- O usuário deve possuir permissão para deletar itens da lista de compras
+- O usuário deve estar acessando uma lista de compras
 
 Fluxo Principal:
 
+| Membro da família              | Sistema                                                                                                    |
+|--------------------------------|------------------------------------------------------------------------------------------------------------|
+| Solicita a exclusão de um item | Verifica se o usuário possui permissão para deletar itens da lista                                         |
+|                                | Informa que o item a exclusão não pode ser revertida, permite que o usuário confiram ou cancele a operação |
+| Confirma a operação            | Deleta o item selecionado e confirma a operação                                                            |
+
 Fluxos Alternativos:
+
+FA1 - O usuário cancela a exclusão
+
+- O sistema retorna a visualização da lista de compras e informa que o item não foi deletado
 
 Fluxo de Exceção:
 
+FE1 - O usuário não possui permissão para deletar itens da lista de compras
+
+- O sistema informa que o usuário não possui permissão para deletar itens da lista de compras e cancela a operação.
+
+FE2 - Erro ao remover item
+
+- O sistema informa que o ocorreu um erro inesperado ao remover o item da lista de compras e permite que o usuário tente novamente
+
 Pós-condição:
 
----
+- Um item é removido da lista de compras
 
 ---
 
-### CSU8 - Alterar lista de compras
+---
+
+### CSU10 - Alterar lista de compras
 
 Resumo:
 
@@ -252,21 +488,46 @@ Resumo:
 
 Ator Principal:
 
+- Membro da família
+
 Pré-condições:
 
+- O usuário deve possuir permissão para alterar a lista de compras
+
 Fluxo Principal:
+
+| Membro da família                                       | Sistema                                                                                                                                                                                                                                                                                                                                                                                                           |
+|---------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Solicita a edição de lista de compras                   | Verifica se o usuário possui permissão para alterar listas de compras                                                                                                                                                                                                                                                                                                                                             |
+|                                                         | Libera a alteração dos dados e itens da lista. O [CSU7](#csu7---adicionar-item-na-lista-de-compras)  é acionado para adicionar itens, o [CSU8](#csu8---alterar-item-na-lista-de-compras) é acionado para alterar itens, o [CSU9](#csu9---remover-item-da-lista-de-compras) é acionado para deletar itens, o [CSU13](#csu13---alterar-visibilidade-da-lista-de-compras) é acionado alterar a visibilidade de lista |
+| Altera os dados e itens desejados e confirma a operação | Valida os dados da lista, aplica as alterações e confirma a operação                                                                                                                                                                                                                                                                                                                                              |
 
 Fluxos Alternativos:
 
 Fluxo de Exceção:
 
+FE1 - O usuário não possui permissão alterar listas de compras
+
+- O sistema informa que o usuário não possui permissão para alterar a lista de compras e cancela a operação
+
+FE2 - Informado dados inválidos
+
+- O sistema informa quais dados estão inválidos e solicita a correção
+- O usuário corrige os dados e tenta novamente
+
+FE3 - Erro ao salvar a alteração dos dados da lista
+
+- O sistema informa que ocorreu um erro inesperado ao salvar os dados da lista e permite que o usuário tente novamente
+
 Pós-condição:
 
----
+- A lista de compras é alterada conforme os dados inseridos/definidos pelo usuário
 
 ---
 
-### CSU9 - Consultar lista de compras
+---
+
+### CSU11 - Consultar lista de compras
 
 Resumo:
 
@@ -288,7 +549,7 @@ Pós-condição:
 
 ---
 
-### CSU 10 - Deletar lista de compras
+### CSU 12 - Deletar lista de compras
 
 Resumo:
 
@@ -310,7 +571,7 @@ Pós-condição:
 
 ---
 
-### CSU11 - Alterar visibilidade da lista de compras
+### CSU13 - Alterar visibilidade da lista de compras
 
 Resumo:
 
@@ -332,7 +593,7 @@ Pós-condição:
 
 ---
 
-### CSU12 - Definir responsáveis de uma lista de compras
+### CSU14 - Definir responsáveis de uma lista de compras
 
 Resumo:
 
@@ -354,7 +615,7 @@ Pós-condição:
 
 ---
 
-### CSU13 - Definir permissões de acesso
+### CSU15 - Definir permissões de acesso
 
 Resumo:
 
@@ -376,7 +637,7 @@ Pós-condição:
 
 ---
 
-### CSU 14 - Enviar notificação
+### CSU 16 - Enviar notificação
 
 Resumo: 
 
