@@ -116,25 +116,90 @@ Pós-condição:
 
 Resumo:
 
-- O usuário escolhe se deseja criar uma nova família ou participar de família existente
+- O usuário participa de uma família existente
 
 Ator Principal:
 
+- Usuário
+
 Pré-condições:
 
+- O usuário deve possuir uma conta na plataforma
+- O usuário deve possuir uma sessão de login ativa
+
 Fluxo Principal:
+
+| Usuário                                         | Sistema                                                                                                                   |
+|-------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
+| Solicita participar de uma família              | Oferece participação por código ou por link                                                                               |
+| Insere o código ou o link da família e confirma | Valida o código ou link, se o código ou link existirem redireciona o usuário para o Home do App e expira o link ou código |
 
 Fluxos Alternativos:
 
 Fluxo de Exceção:
 
+FE1 - Código ou link inválido
+
+- O sistema informa que o código ou link informado expirou ou é invalido
+- O sistema permite que o usuário tente novamente
+
 Pós-condição:
 
----
+- O usuário agora é membro de uma família.
 
 ---
 
-### CSU3 - Adicionar novo membro na família
+---
+
+### CSU3 - Criar uma família
+
+Resumo:
+
+- O usuário cria uma nova família
+
+Ator Principal:
+
+- Usuário
+
+Pré-condições:
+
+- O usuário deve estar cadastrado no sistema
+- O usuário deve possuir uma sessão de login ativa
+
+Fluxo Principal:
+
+| Usuário                           | Sistema                                                                                             |
+|-----------------------------------|-----------------------------------------------------------------------------------------------------|
+| Solicita a criação de uma família | Verifica se o usuário possui a validação do seu email e é maior de idade                            | 
+|                                   | Solicita o nome da nova família                                                                     |
+| Informa o nome e confirma         | Cria uma nova família, adiciona o usuário como responsável e redireciona o mesmo para o Home do App |
+
+Fluxos Alternativos:
+
+Fluxo de Exceção:
+
+FE1 - O usuário não validou o email da conta
+
+- O sistema informa que para criar uma família o email da conta deve ser validado e oferece ao usuário a opção de validar email
+- O usuário valida o email e tenta novamente
+
+FE2 - O usuário não é maior de idade
+
+- O sistema informa que para criar uma família é necessário ser maior de idade e cancela a operação
+
+FE3 - Erro ao criar a família
+
+- O sistema informa que ocorreu um erro inesperado ao criar a família e permite que o usuário tente novamente.
+
+Pós-condição:
+
+- Uma nova família é criada e o usuário é seu responsável
+
+---
+
+---
+
+### CSU4 - Adicionar novo membro na família
 
 Resumo:
 
@@ -142,13 +207,33 @@ Resumo:
 
 Ator Principal:
 
+- Responsável da família
+
 Pré-condições:
+
+- O usuário deve ser um dos responsáveis da família
 
 Fluxo Principal:
 
+| Responsável                                                               | Sistema                                                  |
+|---------------------------------------------------------------------------|----------------------------------------------------------|
+| Solicita a adição de um novo membro na família                            | Pergunta se o novo membro é maior idade                  |
+| Informa que é que maior de idade                                          | Disponibiliza um código de acesso com validade de 1 hora |
+| Envia o código de acesso ao novo membro para que ele participe da família |                                                          |
+
 Fluxos Alternativos:
 
+FA1 - O novo membro é um menor de idade
+
+- O sistema redireciona o usuário para a adição de um menor de idade na família e inicia o CSU x
+
 Fluxo de Exceção:
+
+FE1 - Erro ao gerar o código de acesso
+
+- O sistema informa que ocorreu um erro inesperado e permite que o usuário tente novamente
+
+FE2 - 
 
 Pós-condição:
 
