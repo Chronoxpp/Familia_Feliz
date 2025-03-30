@@ -61,26 +61,38 @@ Pré-condições:
 
 **Fluxo Principal:**
 
-| Usuário                        | Sistema                                                                                     |
-|--------------------------------|---------------------------------------------------------------------------------------------|
-| Tenta acessar a plataforma     | Verifica se existe uma sessão ativa e, caso contrário, exibe as opções de login e cadastro. |
-| Decide realizar cadastro       | Disponibiliza um formulário com campos obrigatórios (nome completo, idade, email e senha)   |
-| Preenche os campos e confirma  | Valida os dados inseridos e informa eventuais erros antes da confirmação final              |
-|                                | Exibe os dados informados para revisão e solicita uma nova confirmação                      |
-| Revisa e confirma o cadastro 	 | Registra os dados, gera um identificador único e exibe a mensagem de sucesso                |
-|                                | Redireciona para o fluxo de criação ou participação em uma família.                         |
+| Usuário                        | Sistema                                                                                                |
+|--------------------------------|--------------------------------------------------------------------------------------------------------|
+| Tenta acessar a plataforma     | Verifica se existe uma sessão ativa e, caso contrário, exibe as opções de login e cadastro             |
+| Decide realizar cadastro       | Disponibiliza um formulário com campos obrigatórios (nome completo, data de nascimento, email e senha) |
+| Preenche os campos e confirma  | Valida os dados inseridos e informa eventuais erros antes da confirmação final                         |
+|                                | Exibe os dados informados para revisão e solicita uma nova confirmação                                 |
+| Revisa e confirma o cadastro 	 | Registra os dados, gera um identificador único e exibe a mensagem de sucesso                           |
+|                                | Envia um email de verificação e solicita a confirmação para ativar a conta                             |
+| Confirma o email               | Ativa a conta e redireciona para o fluxo de criação ou participação em uma família                     |
 
 **Fluxos Alternativos:**
 
 FA1 - Existe uma sessão de login ativa
 
-- O sistema verifica se o usuário ja participa de uma família. Caso participe será redirecionado ao Home do App. Caso contrario, será redirecionado para criar ou participar de uma família.
+- O sistema verifica se o usuário ja participa de uma família.
+  - Se sim, redireciona para a tela inicial do aplicativo.
+  - Se não, redireciona para a tela de criação ou participação em uma família.
 
 FA2 - O usuário decide realizar login
 
 - O sistema solicita o nome de usuário ou email, e senha de acesso.
 - O usuário informa os dados solicitados e confirma o login.
-- O sistema valida as credenciais informadas, cria um sessão de login e o fluxo continua no FA1.
+- O sistema valida as credenciais informadas e cria uma sessão de login.
+- O fluxo continua no FA1.
+
+FA3 - O usuário esqueceu a senha
+
+- O sistema oferece uma opção de recuperação de senha.
+- O usuário informa o email cadastrado.
+- O sistema envia um email com um link para redefinição de senha.
+- O usuário acessa o link, define uma nova senha e confirma.
+- O sistema atualiza a senha e redireciona para a tela de login.
 
 **Fluxo de Exceção:**
 
@@ -106,7 +118,7 @@ FE4 - O usuário informa credenciais invalidas ao realizar login
 
 Pós-condição:
 
-- O usuário possui uma nova conta na plataforma ou acessa uma conta existente.
+- O usuário possui uma nova conta na plataforma ou acessa uma conta existente com sucesso.
 
 ---
 
@@ -165,14 +177,18 @@ Pré-condições:
 
 - O usuário deve estar cadastrado no sistema
 - O usuário deve possuir uma sessão de login ativa
+- O usuário deve ter validado o email cadastrado
+- O usuário deve ser maior de idade
 
 Fluxo Principal:
 
-| Usuário                           | Sistema                                                                                             |
-|-----------------------------------|-----------------------------------------------------------------------------------------------------|
-| Solicita a criação de uma família | Verifica se o usuário possui a validação do seu email e é maior de idade                            | 
-|                                   | Solicita o nome da nova família                                                                     |
-| Informa o nome e confirma         | Cria uma nova família, adiciona o usuário como responsável e redireciona o mesmo para o Home do App |
+| Usuário                           | Sistema                                                                                     |
+|-----------------------------------|---------------------------------------------------------------------------------------------|
+| Solicita a criação de uma família | Verifica se o usuário possui a validação do seu email e é maior de idade                    | 
+|                                   | Solicita o nome da nova família                                                             |
+| Informa o nome e confirma         | Valida o nome informado                                                                     |
+|                                   | Cria uma nova família, adiciona o usuário como responsável e gera um código/link de convite |
+|                                   | Redireciona o usuário para o Home do App                                                    |
 
 Fluxos Alternativos:
 
@@ -194,6 +210,7 @@ FE3 - Erro ao criar a família
 Pós-condição:
 
 - Uma nova família é criada e o usuário é seu responsável
+- O usuário pode configurar e convidar membros para a família imediatamente
 
 ---
 
@@ -215,11 +232,12 @@ Pré-condições:
 
 Fluxo Principal:
 
-| Responsável                                    | Sistema                                                |
-|------------------------------------------------|--------------------------------------------------------|
-| Solicita a adição de um novo membro na família | Pergunta se o novo membro é maior idade                |
-| Informa que é que maior de idade               | Gera e exibe um código de acesso válido por 1 hora     |
-| Envia o código de acesso ao novo membro        | Aguarda o novo membro utilizar o código para ingresso  |
+| Responsável                                    | Sistema                                                                                                                                                   |
+|------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Solicita a adição de um novo membro na família | Pergunta se o novo membro é maior idade                                                                                                                   |
+| Informa que é que maior de idade               | Gera e exibe um código de acesso válido por 1 hora                                                                                                        |
+| Envia o código de acesso ao novo membro        | Aguarda o novo membro utilizar o código para ingresso                                                                                                     |
+|                                                | Quando o novo usuário usar o link, os responsáveis da família são notificados. Caso o código expire, os responsáveis são notificados que o código expirou |
 
 Fluxos Alternativos:
 
@@ -237,9 +255,18 @@ FE2 - O usuário não é um responsável pela família
 
 - O sistema informa que apenas os responsáveis da família podem adicionar novos membros e cancela a operação
 
+FE3 - O código/link expirou antes de ser utilizado
+
+- O sistema informa que o código expirou e permite a geração de um novo
+- O responsável pode reenviar o novo código ao membro
+
+FE4 - O novo membro já faz parte da família
+
+O sistema informa que o usuário já é membro da família e impede a repetição da solicitação
+
 Pós-condição:
 
-Um novo membro é adicionado a família do responsável
+Um novo membro é adicionado à família do responsável
 
 ---
 
@@ -308,13 +335,20 @@ Pré-condições:
 
 Fluxo Principal:
 
-| Membro da família                                           | Sistema                                                                                                                          |
-|-------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
-| Solicita a criação de uma nova lista de compras             | Verifica se o usuário possui permissão para criar listas de compras                                                              |
-|                                                             | Disponibiliza um formulário para o usuário informa a descrição da lista, adicionar produtos e configurar a visibilidade da lista |
-| Informa os dados e os itens da lista, e confirma o cadastro | Valida a lista de compras, realiza o cadastro e envia uma notificação aos membros da família                                     |
+| Membro da família                                | Sistema                                                                                                                          |
+|--------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| Solicita a criação de uma nova lista de compras  | Verifica se o usuário possui permissão para criar listas de compras                                                              |
+|                                                  | Disponibiliza um formulário para o usuário informa a descrição da lista, adicionar produtos e configurar a visibilidade da lista |
+| Informa os dados e os itens da lista, e confirma | Valida os dados fornecidos e exibe um resumo para revisão                                                                        |
+| Confirma a criação da lista                      | Valida a lista, registra a lista de compras e envia uma notificação aos membros da família                                       |
 
 Fluxos Alternativos:
+
+FA1 - O usuário deseja importar itens de uma lista anterior
+
+- O sistema oferece a opção de reutilizar itens de listas anteriores
+- O usuário seleciona uma lista existente e os itens são adicionados automaticamente.
+- O usuário pode revisar e editar os itens antes de confirmar a criação.
 
 Fluxo de Exceção:
 
@@ -535,15 +569,39 @@ Resumo:
 
 Ator Principal:
 
+- Membro da família
+
 Pré-condições:
 
+- O usuário deve possuir permissão para consultar listas de compras
+
 Fluxo Principal:
+
+| Membro da família                                     | Sistema                                                                |
+|-------------------------------------------------------|------------------------------------------------------------------------|
+| Solicita a consulta das listas de compras disponíveis | Verifica se o usuário possui permissão para consultar as listas        |
+|                                                       | Consulta e exibe as listas que o usuário pode visualizar               |
+| Seleciona uma lista                                   | Carrega e exibe a lista em detalhes, permitindo que outros CSU iniciem |
 
 Fluxos Alternativos:
 
 Fluxo de Exceção:
 
+FE1 - O usuário não possui permissão para consultar listas de compras
+
+- O sistema informa que o usuário não possuir permissão para consultar listas de compras e cancela a operação.
+
+FE2 - Erro carregar as listas disponíveis
+
+- O sistema informa que ocorreu um erro inesperado ao consultar as listas e permite que o usuário tente novamente
+
+FE3 - Erro ao carregar a lista selecionada
+
+- O sistema informa que ocorreu um erro inesperado ao carregar a lista selecionada e permite que o usuário tente novamente
+
 Pós-condição:
+
+- O usuário consulta as listas disponíveis e consulta uma lista em detalhes.
 
 ---
 
@@ -557,15 +615,40 @@ Resumo:
 
 Ator Principal:
 
+- Membro da família
+
 Pré-condições:
+
+- O usuário deve possuir permissão para deletar listas de compras
+- O usuário deve estar visualizando a lista que deseja deletar
 
 Fluxo Principal:
 
+| Membro da família                                       | Sistema                                                                               |
+|---------------------------------------------------------|---------------------------------------------------------------------------------------|
+| Solicita a exclusão da lista atual que está consultando | Verifica se o usuário possui permissão para deletar listas de compras                 |
+|                                                         | Solicita uma confirmação adicional para deletar a lista                               |
+| Confirma a exclusão                                     | Deleta a lista de compras e redireciona o usuário para consulta de listas registradas |
+
 Fluxos Alternativos:
+
+FA1 - O usuário cancela a exclusão da lista
+
+- O sistema retorna a visualização da lista e informa que a exclusão da lista foi cancelada
 
 Fluxo de Exceção:
 
+FE1 - O usuário não possui permissão para deletar listas de compras
+
+- O sistema informa que o usuário não possui permissão para deletar listas de compras e cancela a operação
+
+FE2 - Erro ao deletar a lista de compras
+
+- O sistema informa que ocorreu um erro inesperado ao deletar a lista de compras e permite que o usuário tente novamente
+
 Pós-condição:
+
+- Uma lista de compras é deletada do sistema
 
 ---
 
@@ -579,37 +662,41 @@ Resumo:
 
 Ator Principal:
 
+- Membro da família
+
 Pré-condições:
 
+- O usuário deve possuir permissão para alterar a visibilidade de lista de compras
+- O usuário não poder remover a visibilidade dos responsáveis da família
+- O usuário deve estar visualizando uma lista de compras
+
 Fluxo Principal:
+
+| Membro da família                                                    | Sistema                                                                                                                 |
+|----------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| Solicita a alteração da visibilidade da lista de compras             | Verifica se o usuário possui permissão para alterar a visibilidade da lista de compras                                  |
+|                                                                      | Exibe a lista atual de membros que podem ver a lista, e permite que membros não responsáveis da família sejam alterados |
+| Altera os membros que podem visualizar a lista e confirma a operação | Valida a lista de usuários selecionados, altera a visibilidade da lista e confirma a operação                           |
 
 Fluxos Alternativos:
 
 Fluxo de Exceção:
 
-Pós-condição:
+FE1 - O usuário não possui permissão para alterar a visibilidade da lista de compras
 
----
+- O sistema informa que o usuário não possui permissão para alterar a visibilidade da lista de compras e cancela a operação
 
----
+FE2 - O usuário tenta alterar membros responsáveis da família
 
-### CSU14 - Definir responsáveis de uma lista de compras
+- O sistema informa que os responsáveis da família sempre podem visualizar as listas de compras e solicita que o usuário altere outros membros
 
-Resumo:
+FE3 - Erro ao salvar a visibilidade da lista
 
-- Um membro da família define os responsáveis por uma lista de compras.
-
-Ator Principal:
-
-Pré-condições:
-
-Fluxo Principal:
-
-Fluxos Alternativos:
-
-Fluxo de Exceção:
+- O sistema informa que ocorre um erro inesperado ao alterar a visibilidade da lista e permite que o usuário tente novamente
 
 Pós-condição:
+
+- A lista de membros que podem visualizar a lista é alterada
 
 ---
 
@@ -623,15 +710,36 @@ Resumo:
 
 Ator Principal:
 
+- Responsável da família
+
 Pré-condições:
 
+- O usuário deve ser um responsável da família
+
 Fluxo Principal:
+
+| Responsável da família                        | Sistema                                                |
+|-----------------------------------------------|--------------------------------------------------------|
+| Solicita a alteração das permissões de acesso | Verifica se o usuário é um responsável da família      |
+|                                               | Exibe uma lista de usuários disponíveis para seleção   |
+| Seleciona um usuário da lista e avança        | Exibe as permissões e habilita a alteração             |
+| Altera as permissões desejada e confirma      | Salva a alteração das permissões e confirma a operação |
 
 Fluxos Alternativos:
 
 Fluxo de Exceção:
 
+FE1 - O usuário não é um responsável da família
+
+- O sistema informa que o usuário não é um responsável da família e cancela a operação
+
+FE2 - Erro ao salvar as alterações
+
+- O sistema informa que ocorreu um erro inesperado ao salvar as alterações e permite que o usuário tente novamente
+
 Pós-condição:
+
+- As permissões de acesso de um dos membros da família são alteradas
 
 ---
 
@@ -645,14 +753,33 @@ Resumo:
 
 Ator Principal:
 
+- Membro da família
+
 Pré-condições:
 
 Fluxo Principal:
+
+| Membro da família                               | Sistema                                                                                   |
+|-------------------------------------------------|-------------------------------------------------------------------------------------------|
+| Solicita o envio de uma notificação pra família | Abre um formulário onde o usuário pode inserir um resumo, e texto da notificação          |
+| Informa os dados no formulário e confirma       | Valida os dados informados                                                                |
+|                                                 | Envia uma notificação, dentro da plataforma, aos membros da família e confirma a operação |
 
 Fluxos Alternativos:
 
 Fluxo de Exceção:
 
+FE1 - Informado dados inválidos
+
+- O sistema informa quais dados estão inválidos e solicita a correção
+- O usuário corrige os dados informados e tenta novamente
+
+FE2 - Erro ao envia notificação
+
+- O sistema informa que ocorreu um erro inesperado ao envia a notificação e permite que o usuário tente novamente
+
 Pós-condição:
+
+- Uma notificação é enviada a todos os membros da família
 
 ---
