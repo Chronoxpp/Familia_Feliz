@@ -400,7 +400,11 @@ FE1 - Informado dados inválidos
 - O sistema informa quais dados estão inválidos e solicita a correção
 - O usuário corrige os dados e tenta novamente
 
-FE2 - Erro ao adicionar item
+FE2 - O item já existe na lista
+
+-  sistema informa que o item já está na lista e permite alterar o item presente se o usuário possuir permissão.
+
+FE3 - Erro ao adicionar item
 
 - O sistema informa que ocorreu um erro inesperado ao adicionar o item e permite que o usuário tente novamente.
 
@@ -484,11 +488,11 @@ Pré-condições:
 
 Fluxo Principal:
 
-| Membro da família              | Sistema                                                                                                    |
-|--------------------------------|------------------------------------------------------------------------------------------------------------|
-| Solicita a exclusão de um item | Verifica se o usuário possui permissão para deletar itens da lista                                         |
-|                                | Informa que o item a exclusão não pode ser revertida, permite que o usuário confiram ou cancele a operação |
-| Confirma a operação            | Deleta o item selecionado e confirma a operação                                                            |
+| Membro da família              | Sistema                                                                |
+|--------------------------------|------------------------------------------------------------------------|
+| Solicita a exclusão de um item | Verifica se o usuário possui permissão para deletar itens da lista     |
+|                                | Informa que a exclusão não pode ser revertida e solicita a confirmação |
+| Confirma a operação            | Deleta o item selecionado e confirma a operação                        |
 
 Fluxos Alternativos:
 
@@ -527,16 +531,33 @@ Ator Principal:
 Pré-condições:
 
 - O usuário deve possuir permissão para alterar a lista de compras
+- O usuário deve estar acessando uma lista de compras
 
 Fluxo Principal:
 
-| Membro da família                                       | Sistema                                                                                                                                                                                                                                                                                                                                                                                                           |
-|---------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Solicita a edição de lista de compras                   | Verifica se o usuário possui permissão para alterar listas de compras                                                                                                                                                                                                                                                                                                                                             |
-|                                                         | Libera a alteração dos dados e itens da lista. O [CSU7](#csu7---adicionar-item-na-lista-de-compras)  é acionado para adicionar itens, o [CSU8](#csu8---alterar-item-na-lista-de-compras) é acionado para alterar itens, o [CSU9](#csu9---remover-item-da-lista-de-compras) é acionado para deletar itens, o [CSU13](#csu13---alterar-visibilidade-da-lista-de-compras) é acionado alterar a visibilidade de lista |
-| Altera os dados e itens desejados e confirma a operação | Valida os dados da lista, aplica as alterações e confirma a operação                                                                                                                                                                                                                                                                                                                                              |
+| Membro da família                                       | Sistema                                                               |
+|---------------------------------------------------------|-----------------------------------------------------------------------|
+| Solicita a edição de lista de compras                   | Verifica se o usuário possui permissão para alterar listas de compras |
+|                                                         | Libera a alteração dos dados e itens da lista                         |
+| Altera os dados e itens desejados e confirma a operação | Valida os dados da lista, aplica as alterações e confirma a operação  |
 
 Fluxos Alternativos:
+
+FA1 - O usuário deseja adicionar um item à lista
+
+- O sistema aciona o [CSU7](#csu7---adicionar-item-na-lista-de-compras)
+  
+FA2 - O usuário deseja modificar um item da lista
+
+- O sistema aciona o [CSU8](#csu8---alterar-item-na-lista-de-compras)
+
+FA3 - O usuário deseja remover um item da lista
+
+- O sistema aciona o [CSU9](#csu9---remover-item-da-lista-de-compras)
+
+FA4 - O usuário deseja alterar a visibilidade da lista
+
+- O sistema aciona o [CSU13](#csu13---alterar-visibilidade-da-lista-de-compras)
 
 Fluxo de Exceção:
 
@@ -580,10 +601,14 @@ Fluxo Principal:
 | Membro da família                                     | Sistema                                                                |
 |-------------------------------------------------------|------------------------------------------------------------------------|
 | Solicita a consulta das listas de compras disponíveis | Verifica se o usuário possui permissão para consultar as listas        |
-|                                                       | Consulta e exibe as listas que o usuário pode visualizar               |
+|                                                       | Recupera e exibe as listas que o usuário pode visualizar               |
 | Seleciona uma lista                                   | Carrega e exibe a lista em detalhes, permitindo que outros CSU iniciem |
 
 Fluxos Alternativos:
+
+FA1 - Nenhuma lista de compras disponível para o usuário
+
+- O sistema informa que não há listas de compras disponíveis para consulta.
 
 Fluxo de Exceção:
 
@@ -601,7 +626,7 @@ FE3 - Erro ao carregar a lista selecionada
 
 Pós-condição:
 
-- O usuário consulta as listas disponíveis e consulta uma lista em detalhes.
+- O usuário visualiza as listas disponíveis e pode acessar os detalhes de uma lista específica 
 
 ---
 
@@ -611,7 +636,7 @@ Pós-condição:
 
 Resumo:
 
-- Um membro da família deleta uma lista de compras
+- Um membro da família remove permanentemente uma lista de compras do sistema.
 
 Ator Principal:
 
@@ -624,11 +649,11 @@ Pré-condições:
 
 Fluxo Principal:
 
-| Membro da família                                       | Sistema                                                                               |
-|---------------------------------------------------------|---------------------------------------------------------------------------------------|
-| Solicita a exclusão da lista atual que está consultando | Verifica se o usuário possui permissão para deletar listas de compras                 |
-|                                                         | Solicita uma confirmação adicional para deletar a lista                               |
-| Confirma a exclusão                                     | Deleta a lista de compras e redireciona o usuário para consulta de listas registradas |
+| Membro da família                       | Sistema                                                                         |
+|-----------------------------------------|---------------------------------------------------------------------------------|
+| Solicita a exclusão da lista de compras | Verifica se o usuário possui permissão para deletar listas de compras           |
+|                                         | Exibe um alerta informando que a exclusão é irreversível e solicita confirmação |
+| Confirma a exclusão                     | Deleta a lista de compras e redireciona o usuário para a tela consulta          |
 
 Fluxos Alternativos:
 
@@ -658,7 +683,7 @@ Pós-condição:
 
 Resumo:
 
-- Um membro da família altera quem pode visualizar uma lista de compras.
+- Um membro da família modifica a lista de usuários que podem visualizar uma lista de compras
 
 Ator Principal:
 
@@ -668,15 +693,15 @@ Pré-condições:
 
 - O usuário deve possuir permissão para alterar a visibilidade de lista de compras
 - O usuário não poder remover a visibilidade dos responsáveis da família
-- O usuário deve estar visualizando uma lista de compras
+- O usuário deve estar acessando uma lista de compras
 
 Fluxo Principal:
 
-| Membro da família                                                    | Sistema                                                                                                                 |
-|----------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| Solicita a alteração da visibilidade da lista de compras             | Verifica se o usuário possui permissão para alterar a visibilidade da lista de compras                                  |
-|                                                                      | Exibe a lista atual de membros que podem ver a lista, e permite que membros não responsáveis da família sejam alterados |
-| Altera os membros que podem visualizar a lista e confirma a operação | Valida a lista de usuários selecionados, altera a visibilidade da lista e confirma a operação                           |
+| Membro da família                                          | Sistema                                                                                                    |
+|------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
+| Solicita a alteração da visibilidade da lista de compras   | Verifica se o usuário possui permissão para alterar a visibilidade da lista de compras                     |
+|                                                            | Exibe a lista atual de membros com acesso e permite a modificação dos membros não responsáveis da família  |
+| Altera os membros que podem visualizar a lista e confirma  | Valida a lista de usuários selecionados, altera a visibilidade da lista e confirma a operação              |
 
 Fluxos Alternativos:
 
@@ -686,27 +711,27 @@ FE1 - O usuário não possui permissão para alterar a visibilidade da lista de 
 
 - O sistema informa que o usuário não possui permissão para alterar a visibilidade da lista de compras e cancela a operação
 
-FE2 - O usuário tenta alterar membros responsáveis da família
+FE2 - O usuário tenta remover a visibilidade de responsáveis da família
 
-- O sistema informa que os responsáveis da família sempre podem visualizar as listas de compras e solicita que o usuário altere outros membros
+- O sistema informa que os responsáveis da família sempre podem visualizar as listas e impede a remoção desses membros
 
-FE3 - Erro ao salvar a visibilidade da lista
+FE3 - Erro ao salvar a nova configuração de visibilidade
 
-- O sistema informa que ocorre um erro inesperado ao alterar a visibilidade da lista e permite que o usuário tente novamente
+- O sistema informa que ocorreu um erro inesperado ao alterar a visibilidade da lista e permite que o usuário tente novamente
 
 Pós-condição:
 
-- A lista de membros que podem visualizar a lista é alterada
+- A lista de membros com permissão para visualizar a lista de compras é atualizada
 
 ---
 
 ---
 
-### CSU15 - Definir permissões de acesso
+### CSU14 - Definir permissões de acesso
 
 Resumo:
 
-- Um responsável define as permissões de acesso aos membros da família.
+- Um responsável da família gerencia as permissões de acesso dos membros da família
 
 Ator Principal:
 
@@ -718,12 +743,12 @@ Pré-condições:
 
 Fluxo Principal:
 
-| Responsável da família                        | Sistema                                                |
-|-----------------------------------------------|--------------------------------------------------------|
-| Solicita a alteração das permissões de acesso | Verifica se o usuário é um responsável da família      |
-|                                               | Exibe uma lista de usuários disponíveis para seleção   |
-| Seleciona um usuário da lista e avança        | Exibe as permissões e habilita a alteração             |
-| Altera as permissões desejada e confirma      | Salva a alteração das permissões e confirma a operação |
+| Responsável da família                        | Sistema                                           |
+|-----------------------------------------------|---------------------------------------------------|
+| Solicita a alteração das permissões de acesso | Verifica se o usuário é um responsável da família |
+|                                               | Exibe uma lista de membros da família disponíveis |
+| Seleciona um membro da lista                  | Exibe as permissões atuais e habilita a alteração |
+| Altera as permissões e confirma               | Salva as alterações e confirma a operação         |
 
 Fluxos Alternativos:
 
@@ -745,11 +770,11 @@ Pós-condição:
 
 ---
 
-### CSU 16 - Enviar notificação
+### CSU 15 - Enviar notificação
 
 Resumo: 
 
-- Um membro da família envia uma notificação, contendo uma mensagem personalizada, ao outros membros.
+- Um membro da família envia uma notificação personalizada ao outros membros da família.
 
 Ator Principal:
 
@@ -759,11 +784,11 @@ Pré-condições:
 
 Fluxo Principal:
 
-| Membro da família                               | Sistema                                                                                   |
-|-------------------------------------------------|-------------------------------------------------------------------------------------------|
-| Solicita o envio de uma notificação pra família | Abre um formulário onde o usuário pode inserir um resumo, e texto da notificação          |
-| Informa os dados no formulário e confirma       | Valida os dados informados                                                                |
-|                                                 | Envia uma notificação, dentro da plataforma, aos membros da família e confirma a operação |
+| Membro da família                                  | Sistema                                                                                    |
+|----------------------------------------------------|--------------------------------------------------------------------------------------------|
+| Solicita o envio de uma notificação para a família | Abre um formulário onde o usuário pode inserir um título, resumo e o corpo da notificação  |
+| Informa os dados no formulário e confirma          | Valida os dados informados                                                                 |
+|                                                    | Envia uma notificação, dentro da plataforma, aos membros da família e confirma a operação  |
 
 Fluxos Alternativos:
 
@@ -772,14 +797,16 @@ Fluxo de Exceção:
 FE1 - Informado dados inválidos
 
 - O sistema informa quais dados estão inválidos e solicita a correção
-- O usuário corrige os dados informados e tenta novamente
+- O usuário corrige os dados e tenta novamente
 
 FE2 - Erro ao envia notificação
 
-- O sistema informa que ocorreu um erro inesperado ao envia a notificação e permite que o usuário tente novamente
+- O sistema informa que ocorreu um erro inesperado ao enviar a notificação e permite que o usuário tente novamente
 
 Pós-condição:
 
 - Uma notificação é enviada a todos os membros da família
+
+---
 
 ---
