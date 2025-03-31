@@ -21,6 +21,8 @@ O objetivo é demonstrar a interação entre os usuários e os recursos do siste
 
 Aqui serão inseridos diagramas UML ou outros modelos visuais para representar os casos de uso e suas interações.
 
+![Diagrama de casos de uso do projeto](diagramas/CSU.drawio.png)
+
 ---
 
 ## Casos de uso
