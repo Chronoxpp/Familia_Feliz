@@ -34,7 +34,6 @@
     - [NotificacaoRepositorio](#notificacaorepositorio)
   - Permissões
     - [PermissaoAcesso](#permissaoacesso)
-    - [PermissaoAcessoControlador](#permissaoacessocontrolador)
     - [PermissaoAcessoServicos](#permissaoacessoservicos)
     - [PermissaoAcessoRepositorio](#permissaoacessorepositorio)
   - Usuário
@@ -78,7 +77,7 @@ Métodos:
 
 ### AutenticacaoControlador
 
-Resumo: atende a requisições relacionadas a autenticação no sistema, como login, geração de senhas, etc.
+Resumo: Gerencia as requisições de autenticação no sistema, incluindo login, recuperação de senha e criptografia de senhas.
 
 Responsabilidades:
 
@@ -356,35 +355,348 @@ Métodos:
 
 ### LogAuditoria
 
+Resumo: representa um registro de auditória salvo pelo sistema.
+
+Responsabilidades:
+
+- Conhecer a ação realiza para registro.
+- Conhecer o responsável pela ação e o momento em que ela foi realizada.
+- Conhecer se o registro salvo é um erro ou não.
+
+Atributos:
+
+| Atributo | Tipo | Descrição |
+|----------|------|-----------|
+
+Métodos:
+
+| Método | Argumentos | Retorno | Descrição |
+|--------|------------|---------|-----------|
+
+---
+
+---
+
 ### LogAuditoriaControlador
+
+Resumo: Responde a solicitações relacionadas a auditoria, como criação de novos logs, consulta de logs, registro de erros.
+
+Responsabilidades:
+
+- Responder a solicitações para criar e consultar logs.
+- Responder a solicitações para registrar erros.
+
+Atributos:
+
+| Atributo | Tipo | Descrição |
+|----------|------|-----------|
+
+Métodos:
+
+| Método | Argumentos | Retorno | Descrição |
+|--------|------------|---------|-----------|
+
+---
+
+---
 
 ### LogAuditoriaServicos
 
+Resumo: realiza operações relacionadas a logs, como criação, consulta, sanitização e organização de logs.
+
+Responsabilidades:
+
+- Criar logs para auditoria.
+- Criar logs de erro para auditoria.
+- Consultar logs registrados para auditoria.
+- Sanitizar as informações contidas nos logs.
+
+Atributos:
+
+| Atributo | Tipo | Descrição |
+|----------|------|-----------|
+
+Métodos:
+
+| Método | Argumentos | Retorno | Descrição |
+|--------|------------|---------|-----------|
+
+---
+
+---
+
 ### LogAuditoriaRepositorio
+
+Resumo: implementa o armazenamento persistente dos logs para auditoria.
+
+Responsabilidades:
+
+- Registrar logs de forma persistente.
+- Obter logs registrados no sistema.
+
+Atributos:
+
+| Atributo | Tipo | Descrição |
+|----------|------|-----------|
+
+Métodos:
+
+| Método | Argumentos | Retorno | Descrição |
+|--------|------------|---------|-----------|
+
+---
+
+---
 
 ### Notificacao
 
+Resumo: representa uma notificação dentro do sistema
+
+Responsabilidades:
+
+- Conhecer o resumo da notificação.
+- Conhecer o texto do corpo da notificação.
+- Conhecer a urgência da notificação.
+
+Atributos:
+
+| Atributo | Tipo | Descrição |
+|----------|------|-----------|
+
+Métodos:
+
+| Método | Argumentos | Retorno | Descrição |
+|--------|------------|---------|-----------|
+
+---
+
+---
+
 ### NotificacaoControlador
+
+Resumo: responde a solicitações relacionadas a notificações, como enviar ou consultar notificações.
+
+Responsabilidades:
+
+- Responder a pedidos de envio de notificação.
+- Responder a pedidos de consulta de notificações.
+
+Atributos:
+
+| Atributo | Tipo | Descrição |
+|----------|------|-----------|
+
+Métodos:
+
+| Método | Argumentos | Retorno | Descrição |
+|--------|------------|---------|-----------|
+
+---
+
+---
 
 ### NotificacaoServicos
 
+Resumo: realiza operações relacionadas a notificações, como validação, registro, envio e consulta de notificações.
+
+Responsabilidades:
+
+- Validar as informações contidas nas notificações.
+- Registrar notificações.
+- Enviar notificações aos membros da família.
+- Consultar notificações recebidas anteriormente.
+
+Atributos:
+
+| Atributo | Tipo | Descrição |
+|----------|------|-----------|
+
+Métodos:
+
+| Método | Argumentos | Retorno | Descrição |
+|--------|------------|---------|-----------|
+
+---
+
+---
+
 ### NotificacaoRepositorio
+
+Resumo: realiza o armazenamento persistente dos dados relacionados a notificações, registrando as notificações. Também consulta os dados armazenados.
+
+Responsabilidades:
+
+- Registrar notificações.
+- Consultar notificações registradas.
+
+Atributos:
+
+| Atributo | Tipo | Descrição |
+|----------|------|-----------|
+
+Métodos:
+
+| Método | Argumentos | Retorno | Descrição |
+|--------|------------|---------|-----------|
+
+---
+
+---
 
 ### PermissaoAcesso
 
-### PermissaoAcessoControlador
+Resumo: representa uma permissão de acesso a algum recurso do sistema.
+
+Responsabilidades:
+
+- Conhecer a descrição da permissão.
+- Conhecer se o usuário inspecionado possui tal permissão.
+
+Atributos:
+
+| Atributo | Tipo | Descrição |
+|----------|------|-----------|
+
+Métodos:
+
+| Método | Argumentos | Retorno | Descrição |
+|--------|------------|---------|-----------|
+
+---
+
+---
 
 ### PermissaoAcessoServicos
 
+Resumo: realiza operações relacionadas a permissões de acesso, como consulta e alteração das permissões de acesso de um usuário.
+
+Responsabilidades:
+
+- Consultar permissões de acesso de um membro da família.
+- Alterar permissões de acesso de um membro da família.
+
+Atributos:
+
+| Atributo | Tipo | Descrição |
+|----------|------|-----------|
+
+Métodos:
+
+| Método | Argumentos | Retorno | Descrição |
+|--------|------------|---------|-----------|
+
+---
+
+---
+
 ### PermissaoAcessoRepositorio
+
+Resumo: implementa o armazenamento persistente das permissões de acesso de um membro de uma família.
+
+Responsabilidades:
+
+- Atualizar as permissões de acesso de um membro da família.
+- Consultar as permissões de acesso de um membro da família.
+
+Atributos:
+
+| Atributo | Tipo | Descrição |
+|----------|------|-----------|
+
+Métodos:
+
+| Método | Argumentos | Retorno | Descrição |
+|--------|------------|---------|-----------|
+
+---
+
+---
 
 ### Usuario
 
+Resumo: representa um usuário do sistema, dentro do sistema.
+
+Responsabilidades:
+
+- Conhecer o nome do usuário.
+
+Atributos:
+
+| Atributo | Tipo | Descrição |
+|----------|------|-----------|
+
+Métodos:
+
+| Método | Argumentos | Retorno | Descrição |
+|--------|------------|---------|-----------|
+
+---
+
+---
+
 ### UsuarioControlador
+
+Resumo: responde a solicitações relacionadas a usuários, como operações CRUD.
+
+Responsabilidades:
+
+- Responde a solicitações de operações CRUD.
+
+Atributos:
+
+| Atributo | Tipo | Descrição |
+|----------|------|-----------|
+
+Métodos:
+
+| Método | Argumentos | Retorno | Descrição |
+|--------|------------|---------|-----------|
+
+---
+
+---
 
 ### UsuarioServicos
 
+Resumo: realiza operações relacionadas a usuários, como validação e operações CRUD.
+
+Responsabilidades:
+
+- Validar os dados do usuário.
+- Sanitizar os dados do usuário.
+- Realizar operações CRUD.
+
+Atributos:
+
+| Atributo | Tipo | Descrição |
+|----------|------|-----------|
+
+Métodos:
+
+| Método | Argumentos | Retorno | Descrição |
+|--------|------------|---------|-----------|
+
+---
+
+---
+
 ### UsuarioRepositorio
+
+Resumo: implementa o mecanismo de armazenamento persistente os dados usuários do sistema.
+
+Responsabilidades:
+
+- Realizar operações CRUD.
+
+Atributos:
+
+| Atributo | Tipo | Descrição |
+|----------|------|-----------|
+
+Métodos:
+
+| Método | Argumentos | Retorno | Descrição |
+|--------|------------|---------|-----------|
 
 ---
 
