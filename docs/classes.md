@@ -77,11 +77,11 @@ Métodos:
 
 ### AutenticacaoControlador
 
-Resumo: Gerencia as requisições de autenticação no sistema, incluindo login, recuperação de senha e criptografia de senhas.
+Resumo: gerencia as requisições de autenticação no sistema, incluindo login, recuperação de senha.
 
 Responsabilidades:
 
-- Atender requisições para autenticar usuários
+- Atender requisições para autenticar usuários.
 
 Atributos:
 
@@ -99,13 +99,11 @@ Métodos:
 
 ### AutenticacaoServicos
 
-Resumo: realizar serviços relacionados a autenticação, como a criação de senhas, autenticação de usuários, geração de tokens, etc
+Resumo: realizar serviços relacionados a autenticação, incluindo autenticação de usuário, geração de tokens, e recuperação de senhas.
 
 Responsabilidades:
 
-- Autenticar usuários
-- Criptografar senhas
-- Gerar tokens
+- Autenticar usuários.
 
 Atributos:
 
@@ -123,12 +121,12 @@ Métodos:
 
 ### EmailServicos
 
-Resumo: realiza operações relacionadas a email, como validação e envio de emails
+Resumo: realiza operações relacionadas a email, como validação de endereços de email e envio de emails.
 
 Responsabilidades:
 
-- Validar email
-- Enviar email
+- Validar endereço de email.
+- Enviar email.
 
 Atributos:
 
@@ -146,12 +144,12 @@ Métodos:
 
 ### Familia
 
-Resumo: Representa uma família dentro do sistema
+Resumo: representa uma família dentro do sistema
 
 Responsabilidades:
 
-- Conhecer seus membros
-- Conhecer seu identificador
+- Conhecer seus membros.
+- Conhecer seu identificador.
 
 Atributos:
 
@@ -169,13 +167,13 @@ Métodos:
 
 ### FamiliaControlador
 
-Resumo: atender a requisições relacionadas a famílias.
+Resumo: atende a requisições relacionadas a famílias.
 
 Responsabilidades:
 
-- Responder à criação de uma família
-- Responder à adição de membros a uma família
-- Responder à remoção de membro de uma família
+- Responder à solicitação para criação de uma família.
+- Responder à solicitação de adição de membros a família.
+- Responder à solicitação de remoção de membros da família.
 
 Atributos:
 
@@ -193,7 +191,7 @@ Métodos:
 
 ### FamiliaServicos
 
-Resumo: Realiza as operações relacionadas a famílias. Como operações CRUD ou gerenciamento de membros.
+Resumo: realiza as operações relacionadas a famílias. Como operações CRUD ou gerenciamento de membros.
 
 Responsabilidades:
 
@@ -216,12 +214,12 @@ Métodos:
 
 ### FamiliaRepositorio
 
-Resumo: salva de forma persistente os dados relacionados a família
+Resumo: implementa o mencanismo de armazenamento persistente dos dados relacionados a família.
 
 Responsabilidades:
 
-- Realizar operações CRUD dos dados da família
-- Salvar e remover os membros da família
+- Realizar operações CRUD.
+- Salvar e remover os membros da família.
 
 Atributos:
 
@@ -239,13 +237,13 @@ Métodos:
 
 ### ListaCompras
 
-Resumo: representa uma lista de compras dentro do sistema
+Resumo: representa uma lista de compras no sistema.
 
 Responsabilidades:
 
-- Conhecer a descrição da lista
-- Conhecer os itens da lista
-- Conhecer a lista de membros que podem visualizar a lista
+- Conhecer a descrição da lista.
+- Conhecer os itens da lista.
+- Conhecer a lista de membros que podem visualizar a lista.
 
 Atributos:
 
@@ -263,12 +261,12 @@ Métodos:
 
 ### ListaComprasControlador
 
-Resumo: responde a solicitações relacionadas a lista de compras, como operações CRUD ou gerenciamento dos itens.
+Resumo: responde a solicitações relacionadas a lista de compras, incluindo operações CRUD e gerenciamento dos itens.
 
 Responsabilidades:
 
-- Responder a solicitações de operações CRUD
-- Responder a solicitações para manipular itens da lista
+- Responder a solicitações de operações CRUD.
+- Responder a solicitações para gerenciar itens da lista.
 
 Atributos:
 
@@ -286,13 +284,13 @@ Métodos:
 
 ### ListaComprasServicos
 
-Resumo: realiza as operações relacionadas a lista de compras. Faz operações CRUD, gerencia os itens, realiza validações e sanitização dos dados da lista.
+Resumo: realiza as operações relacionadas a lista de compras, incluindo operações CRUD, gerenciamento dos itens, e validações.
 
 Responsabilidades:
 
-- Gerenciar listas de compras(CRUD)
-- Gerenciar itens da lista de compras(adição, alteração, remoção)
-- Validar os dados da lista e seus itens
+- Gerenciar listas de compras(CRUD).
+- Gerenciar itens das listas(CRUD).
+- Validar os dados da lista e seus itens.
 
 Atributos:
 
@@ -310,12 +308,12 @@ Métodos:
 
 ### ListaComprasRepositorio
 
-Resumo: implementa o salvamento persistente dos dados das listas de compras e seus itens.
+Resumo: implementa o mecanismo de armazenamento persistente dos dados da lista de compras.
 
 Responsabilidades:
 
 - Realizar operações CRUD da lista
-- Realizar operações CRUD dos itens da lista
+- Realizar operações CRUD dos itens da lista.
 
 Atributos:
 
@@ -333,11 +331,11 @@ Métodos:
 
 ### ItemListaCompras
 
-Resumo: representa um item de uma lista de compras
+Resumo: representa um item de uma lista de compras.
 
 Responsabilidades:
 
-- Conhecer a descrição, quantidade e unidade do item
+- Conhecer a descrição, quantidade e unidade do item.
 
 Atributos:
 
@@ -355,13 +353,14 @@ Métodos:
 
 ### LogAuditoria
 
-Resumo: representa um registro de auditória salvo pelo sistema.
+Resumo: representa um registro de uma ação ou reação ocorrida no sistema para fins de auditoria.
 
 Responsabilidades:
 
-- Conhecer a ação realiza para registro.
-- Conhecer o responsável pela ação e o momento em que ela foi realizada.
-- Conhecer se o registro salvo é um erro ou não.
+- Conhecer a ação ou reação ocorrida para registro.
+- Conhecer o responsável pela ação/reação.
+- Conhecer o momento em que a ação/reação ocorreu.
+- Reconhecer o registro log de erro ou log comum.
 
 Atributos:
 
@@ -379,12 +378,11 @@ Métodos:
 
 ### LogAuditoriaControlador
 
-Resumo: Responde a solicitações relacionadas a auditoria, como criação de novos logs, consulta de logs, registro de erros.
+Resumo: responde a solicitações relacionadas a auditoria, incluindo registro e consulta de logs.
 
 Responsabilidades:
 
-- Responder a solicitações para criar e consultar logs.
-- Responder a solicitações para registrar erros.
+- Responder a solicitações para registrar e consultar logs.
 
 Atributos:
 
@@ -402,12 +400,11 @@ Métodos:
 
 ### LogAuditoriaServicos
 
-Resumo: realiza operações relacionadas a logs, como criação, consulta, sanitização e organização de logs.
+Resumo: realiza operações relacionadas a auditoria, incluindo registro, consulta, sanitização e organização de logs.
 
 Responsabilidades:
 
-- Criar logs para auditoria.
-- Criar logs de erro para auditoria.
+- Registrar logs para auditoria.
 - Consultar logs registrados para auditoria.
 - Sanitizar as informações contidas nos logs.
 
@@ -427,12 +424,12 @@ Métodos:
 
 ### LogAuditoriaRepositorio
 
-Resumo: implementa o armazenamento persistente dos logs para auditoria.
+Resumo: implementa o mecanismo de armazenamento persistente dos logs para auditoria.
 
 Responsabilidades:
 
 - Registrar logs de forma persistente.
-- Obter logs registrados no sistema.
+- Consultar logs registrados no sistema.
 
 Atributos:
 
@@ -474,12 +471,12 @@ Métodos:
 
 ### NotificacaoControlador
 
-Resumo: responde a solicitações relacionadas a notificações, como enviar ou consultar notificações.
+Resumo: responde a solicitações relacionadas a notificações, incluindo enviar ou consultar notificações.
 
 Responsabilidades:
 
-- Responder a pedidos de envio de notificação.
-- Responder a pedidos de consulta de notificações.
+- Responder a solicitações de envio de notificação.
+- Responder a solicitações de consulta de notificações.
 
 Atributos:
 
@@ -497,7 +494,7 @@ Métodos:
 
 ### NotificacaoServicos
 
-Resumo: realiza operações relacionadas a notificações, como validação, registro, envio e consulta de notificações.
+Resumo: realiza operações relacionadas a notificações, incluindo validação, registro, envio e consulta de notificações.
 
 Responsabilidades:
 
@@ -522,7 +519,7 @@ Métodos:
 
 ### NotificacaoRepositorio
 
-Resumo: realiza o armazenamento persistente dos dados relacionados a notificações, registrando as notificações. Também consulta os dados armazenados.
+Resumo: implementa o mecanismo de armazenamento persistente dos dados relacionados a notificações, limita a registro e consulta de notificações
 
 Responsabilidades:
 
@@ -550,7 +547,6 @@ Resumo: representa uma permissão de acesso a algum recurso do sistema.
 Responsabilidades:
 
 - Conhecer a descrição da permissão.
-- Conhecer se o usuário inspecionado possui tal permissão.
 
 Atributos:
 
@@ -568,7 +564,7 @@ Métodos:
 
 ### PermissaoAcessoServicos
 
-Resumo: realiza operações relacionadas a permissões de acesso, como consulta e alteração das permissões de acesso de um usuário.
+Resumo: realiza operações relacionadas a permissões de acesso, incluindo consulta e alteração das permissões de um usuário.
 
 Responsabilidades:
 
@@ -591,7 +587,7 @@ Métodos:
 
 ### PermissaoAcessoRepositorio
 
-Resumo: implementa o armazenamento persistente das permissões de acesso de um membro de uma família.
+Resumo: implementa o mecanismo de armazenamento persistente das permissões de acesso de um membro de uma família.
 
 Responsabilidades:
 
@@ -614,7 +610,7 @@ Métodos:
 
 ### Usuario
 
-Resumo: representa um usuário do sistema, dentro do sistema.
+Resumo: representa um usuário do sistema.
 
 Responsabilidades:
 
@@ -636,11 +632,12 @@ Métodos:
 
 ### UsuarioControlador
 
-Resumo: responde a solicitações relacionadas a usuários, como operações CRUD.
+Resumo: responde a solicitações relacionadas a usuários, incluindo operações CRUD e gerenciamento de permissões de acesso.
 
 Responsabilidades:
 
 - Responde a solicitações de operações CRUD.
+- Responde a solicitações de gerenciamento de permissões de acesso.
 
 Atributos:
 
@@ -658,7 +655,7 @@ Métodos:
 
 ### UsuarioServicos
 
-Resumo: realiza operações relacionadas a usuários, como validação e operações CRUD.
+Resumo: realiza operações relacionadas a usuários, incluindo validação e operações CRUD.
 
 Responsabilidades:
 
@@ -682,7 +679,7 @@ Métodos:
 
 ### UsuarioRepositorio
 
-Resumo: implementa o mecanismo de armazenamento persistente os dados usuários do sistema.
+Resumo: implementa o mecanismo de armazenamento persistente dos dados dos usuários.
 
 Responsabilidades:
 
