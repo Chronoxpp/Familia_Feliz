@@ -90,8 +90,9 @@ Atributos:
 
 Métodos:
 
-| Método | Argumentos | Retorno | Descrição |
-|--------|------------|---------|-----------|
+| Método        | Argumentos                                      | Retorno | Descrição                                         |
+|---------------|-------------------------------------------------|---------|---------------------------------------------------|
+| realizarLogin | nomeUsuario:String, email:String, senha:String  | boolean | permite que o usuário realize login na plataforma |
 
 ---
 
@@ -112,8 +113,9 @@ Atributos:
 
 Métodos:
 
-| Método | Argumentos | Retorno | Descrição |
-|--------|------------|---------|-----------|
+| Método        | Argumentos                                     | Retorno | Descrição                                   |
+|---------------|------------------------------------------------|---------|---------------------------------------------|
+| realizarLogin | nomeUsuario:String, email:String, senha:String | boolean | realiza o login de um usuário na plataforma |
 
 ---
 
@@ -135,8 +137,9 @@ Atributos:
 
 Métodos:
 
-| Método | Argumentos | Retorno | Descrição |
-|--------|------------|---------|-----------|
+| Método               | Argumentos   | Retorno | Descrição                   |
+|----------------------|--------------|---------|-----------------------------|
+| validarEnderecoEmail | email:String | boolean | Valida um endereço de email |
 
 ---
 
@@ -153,8 +156,11 @@ Responsabilidades:
 
 Atributos:
 
-| Atributo | Tipo | Descrição |
-|----------|------|-----------|
+| Atributo  | Tipo    | Descrição                |
+|-----------|---------|--------------------------|
+| membros   | array   | Membros da família       |
+| id        | integer | Identificador da família |
+| descricao | String  | Nome da família          |
 
 Métodos:
 
@@ -182,8 +188,13 @@ Atributos:
 
 Métodos:
 
-| Método | Argumentos | Retorno | Descrição |
-|--------|------------|---------|-----------|
+| Método            | Argumentos                  | Retorno        | Descrição                                              |
+|-------------------|-----------------------------|----------------|--------------------------------------------------------|
+| registrarFamilia  | descricao:String            | familia:Array  | Registra uma família no sistema                        |
+| alterarFamilia    | familia:Array               | familia:Array  | Altera os dados de uma família no sistema              |
+| consultarFamilias | usuario:Array               | familias:Array | Retorna as famílias vinculadas a um usuário no sistema |
+| adicionarMembro   | membro:Array, familia:Array | familia:Array  | Adiciona um membro na família                          |
+| removerMembro     | membro:Array, familia:Array | familia:Array  | Remove um membro da família                            |
 
 ---
 
@@ -205,8 +216,14 @@ Atributos:
 
 Métodos:
 
-| Método | Argumentos | Retorno | Descrição |
-|--------|------------|---------|-----------|
+| Método            | Argumentos                      | Retorno         | Descrição                                                |
+|-------------------|---------------------------------|-----------------|----------------------------------------------------------|
+| registrarFamilia  | descricao:String                | familia:Familia | Registra uma família no sistema                          |
+| removerFamilia    | familia:Familia                 | boolean         | Remove uma família do sistema                            |
+| alterarFamilia    | familia:Familia                 | familia:Familia | Altera os dados de uma familia no sistema                |
+| consultarFamilias | usuario:Usuario                 | familias:Array  | Consulta as famílias vinculadas a um usuário do sistema  |
+| adicionarMembro   | membro:Usuario, familia:Familia | familia:Familia | Adiciona um membro na família                            |
+| removerMembro     | membro:Usuario, familia:Familia | Familia:Familia | Remove um membro da família                              |
 
 ---
 
@@ -228,8 +245,14 @@ Atributos:
 
 Métodos:
 
-| Método | Argumentos | Retorno | Descrição |
-|--------|------------|---------|-----------|
+| Método             | Argumentos                      | Retorno         | Descrição                                               |
+|--------------------|---------------------------------|-----------------|---------------------------------------------------------|
+| registrarFamilia   | descricao:String                | familia:Familia | Registra uma família no sistema                         |
+| removerFamilia     | familia:Familia                 | boolean         | Remove uma família do sistema                           |
+| alterarFamilia     | familia:Familia                 | familia:Familia | Altera os dados de uma familia no sistema               |
+| consultarFamilias  | membro:Usuario                  | familias:array  | Consulta as famílias vinculadas a um usuário do sistema |
+| adicionarMembro    | membro:Usuario, familia:Familia | familia:Familia | Adiciona um membro na família                           |
+| removerMembro      | membro:Usuario, familia:Familia | familia:Familia | Remove um membro da família                             |
 
 ---
 
