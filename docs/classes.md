@@ -270,8 +270,11 @@ Responsabilidades:
 
 Atributos:
 
-| Atributo | Tipo | Descrição |
-|----------|------|-----------|
+| Atributo            | Tipo   | Descrição                                                |
+|---------------------|--------|----------------------------------------------------------|
+| descricao           | String | Descrição ou nome da lista de compras                    |
+| itens               | Array  | Conjunto de itens da lista de compras                    |
+| membrosVisualizacao | Array  | Lista de membros que podem visualizar a lista de compras |
 
 Métodos:
 
@@ -298,8 +301,15 @@ Atributos:
 
 Métodos:
 
-| Método | Argumentos | Retorno | Descrição |
-|--------|------------|---------|-----------|
+| Método          | Argumentos                                                 | Retorno      | Descrição                                               |
+|-----------------|------------------------------------------------------------|--------------|---------------------------------------------------------|
+| registrarLista  | descricao:String, membrosVisualizacao:Array, familia:Array | lista:Array  | Registra uma lista de compras no sistema                |
+| alterarLista    | lista:Array                                                | lista:Array  | Altera uma lista de compras no sistema                  |
+| consultarListas | familia:Array                                              | listas:Array | Consulta as listas de compras de uma família no sistema |
+| deletarLista    | lista:Array                                                | boolean      | Deleta uma lista de compras do sistema                  |
+| adicionarItem   | item:Array, lista:Array                                    | lista:Array  | Adiciona um item em uma lista de compras                |
+| alterarItem     | item:Array, lista:Array                                    | lista:Array  | Altera um item de uma lista de compras                  |
+| removerItem     | item:Array, lista:Array                                    | lista:Array  | Remove um item de uma lista de compras                  |
 
 ---
 
@@ -322,8 +332,16 @@ Atributos:
 
 Métodos:
 
-| Método | Argumentos | Retorno | Descrição |
-|--------|------------|---------|-----------|
+| Método           | Argumentos                                | Retorno            | Descrição                                               |
+|------------------|-------------------------------------------|--------------------|---------------------------------------------------------|
+| registrarLista   | lista:ListaCompras                        | lista:ListaCompras | Registra uma lista de compras no sistema                |
+| alterarLista     | lista:ListaCompras                        | lista:ListaCompras | Altera uma lista de compras no sistema                  |
+| consultarListas  | familia:Familia                           | listas:Array       | Consulta as listas de compras de uma família no sistema |
+| deletarLista     | lista:ListaCompras                        | boolean            | Deleta uma lista de compras do sistema                  |
+| adicionarItem    | item:ItemListaCompras, lista:ListaCompras | lista:ListaCompras | Adiciona um item em uma lista de compras                |
+| alterarItem      | item:ItemListaCompras, lista:ListaCompras | lista:ListaCompras | Altera um item de uma lista de compras                  |
+| removerItem      | item:ItemListaCompras, lista:ListaCompras | lista:ListaCompras | Remove um item de uma lista de compras                  |
+| validarLista     | lista:ListaCompras                        | boolean            | Valida uma lista de compras no sistema                  |
 
 ---
 
