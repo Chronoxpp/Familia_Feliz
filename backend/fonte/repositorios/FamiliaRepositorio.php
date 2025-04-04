@@ -90,7 +90,7 @@ class FamiliaRepositorio
 
     function deletarFamilia(Familia $familia): bool
     {
-        $sql = 'DELETE FROM familias WHERE id = :id';
+        $sql = 'DELETE FROM familias WHERE id = :id;';
         $parametros = array(
             ':id' => $familia->getId()
         );
@@ -128,12 +128,16 @@ class FamiliaRepositorio
         $this->baseDados->executar($sql, $parametros);
 
         $membros = $familia->getMembros();
-        $membros = array_filter(
-            $membros,
-            function ($membro)
+        foreach ($membros as $indice => $membroForeach)
+        {
+            if($membroForeach->getId() != $membro->getId())
             {
-                return ();
+                unset($membros[$indice]);
+                break;
             }
-        );
+        }
+        $familia->setMembros($membros);
+
+        return $familia;
     }
 }
