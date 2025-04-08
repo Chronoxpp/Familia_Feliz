@@ -1,8 +1,9 @@
 <?php
 
-namespace Fonte\repositorios;
+namespace fonte\repositorios;
 
 use Fonte\modelos\Familia;
+use Fonte\base_dados\BaseDadosInterface;
 
 class FamiliaRepositorio
 {
