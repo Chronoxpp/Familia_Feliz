@@ -9,8 +9,8 @@ interface BaseDadosInterface
     public function conectar();
     public function desconectar();
 
-    public function consultar(array $sql, array $parametros);
-    public function executar(array $sql, array $parametros);
+    public function consultar(string $sql, array $parametros);
+    public function executar(string $sql, array $parametros);
 
     public function abrirTransacao();
     public function fecharTransacao();
