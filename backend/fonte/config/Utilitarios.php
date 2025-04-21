@@ -4,7 +4,7 @@ namespace fonte\config;
 
 class Utilitarios
 {
-    static function carregarEnv($caminho)
+    static function carregarEnv($caminho = "")
     {
         if(!$caminho)
         {
