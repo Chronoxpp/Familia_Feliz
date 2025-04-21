@@ -1,1 +1,2 @@
 .env
+sql/postgres_role.sql
