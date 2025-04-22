@@ -1,11 +1,13 @@
 <?php
 
-namespace fonte\repositorios;
+namespace App\repositorios;
 
-use Fonte\modelos\Familia;
-use Fonte\modelos\Usuario;
-use Fonte\base_dados\BaseDadosInterface;
-use Fonte\base_dados\BaseDadosPostgres;
+require "vendor/autoload.php";
+
+use App\modelos\Familia;
+use App\modelos\Usuario;
+use App\base_dados\BaseDadosInterface;
+use App\base_dados\BaseDadosPostgres;
 
 
 class FamiliaRepositorio

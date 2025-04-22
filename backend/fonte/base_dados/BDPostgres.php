@@ -1,16 +1,17 @@
 <?php
 
-namespace fonte\base_dados;
+namespace App\base_dados;
+
+require "vendor/autoload.php";
 
 use PDO;
 use PDOException;
-use fonte\config\utilitarios;
+use App\config\utilitarios;
 
 
 class BDPostgres implements BaseDadosInterface
 {
     private PDO $conexao;
-
 
     function conectar(): void
     {

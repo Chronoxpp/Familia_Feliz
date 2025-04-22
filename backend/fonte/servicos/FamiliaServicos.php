@@ -1,16 +1,12 @@
 <?php
 
-namespace Fonte\servicos;
+namespace App\servicos;
 
-use Error;
-use Fonte\modelos\Familia;
-use Fonte\modelos\Usuario;
-use Fonte\repositorios\FamiliaRepositorio;
-use mysql_xdevapi\Exception;
+require "vendor/autoload.php";
 
-require_once __DIR__ . '/../../modelos/Familia.php';
-require_once __DIR__ . '/../../modelos/Usuario.php';
-require_once __DIR__ . '/../../repositorios/FamiliaRepositorio.php';
+use App\modelos\Familia;
+use App\modelos\Usuario;
+use App\repositorios\FamiliaRepositorio;
 
 
 class FamiliaServicos
@@ -78,7 +74,7 @@ class FamiliaServicos
         $familia->setDescricao(trim($familia->getDescricao()));
         if (! $familia->getDescricao())
         {
-            throw new Exception('A familia deve possuir um nome/descrição!');
+            throw new \Exception('A familia deve possuir um nome/descrição!');
         }
 
         return $familia;
@@ -89,7 +85,7 @@ class FamiliaServicos
     {
         if (! $membro->getNome())
         {
-            throw new Exception('Membro da família sem nome, todo membro deve possuir um nome!');
+            throw new \Exception('Membro da família sem nome, todo membro deve possuir um nome!');
         }
 
         return $membro;

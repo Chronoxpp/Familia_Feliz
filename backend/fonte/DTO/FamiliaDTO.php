@@ -1,10 +1,12 @@
 <?php
 
-namespace fonte\DTO;
+namespace App\DTO;
 
-use Fonte\modelos\Familia;
-use Fonte\modelos\Usuario;
-use mysql_xdevapi\Exception;
+require "vendor/autoload.php";
+
+use App\modelos\Familia;
+use App\modelos\Usuario;
+
 
 class FamiliaDTO
 {
@@ -12,7 +14,7 @@ class FamiliaDTO
     {
         if (! isset($dadosFamilia['id']) || ! isset($dadosFamilia['descricao']))
         {
-            throw new Exception('Identificador ou descrição da família na informado!');
+            throw new \ErrorException('Identificador ou descrição da família na informado!');
         }
 
         $membros = isset($dadosFamilia['membros']) ?

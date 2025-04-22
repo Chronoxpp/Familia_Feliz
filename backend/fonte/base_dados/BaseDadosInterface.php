@@ -1,8 +1,9 @@
 <?php
 
-namespace fonte\base_dados;
+namespace App\base_dados;
 
-use Fonte\modelos\Familia;
+require "vendor/autoload.php";
+
 
 interface BaseDadosInterface
 {

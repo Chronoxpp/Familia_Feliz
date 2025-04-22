@@ -1,6 +1,9 @@
 <?php
 
-namespace Fonte\modelos;
+namespace App\modelos;
+
+require "vendor/autoload.php";
+
 
 class Familia
 {

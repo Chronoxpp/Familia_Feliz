@@ -1,6 +1,8 @@
 <?php
 
-namespace fonte\config;
+namespace App\config;
+
+require "vendor/autoload.php";
 
 class Utilitarios
 {

@@ -1,15 +1,16 @@
 <?php
 
+namespace App\rotas\api;
+
+require "vendor/autoload.php";
+
+use App\servicos\FamiliaServicos;
+use App\DTO\FamiliaDTO;
+
+
 header('Access-Control-Allow-Origin: *');
 header('content-type: application/json; charset=UTF-8');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-
-
-use Fonte\servicos\FamiliaServicos;
-
-require_once __DIR__ . '/../../servicos/FamiliaServicos.php';
-require_once __DIR__ . '/../../modelos/Familia.php';
-require_once __DIR__ . '/../../DTO/FamiliaDTO.php';
 
 
 $metodoRequisicao = $_SERVER['REQUEST_METHOD'];
