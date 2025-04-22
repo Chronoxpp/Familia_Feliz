@@ -1,0 +1,15 @@
+{
+    "name": "lucas/backend",
+    "autoload": {
+        "psr-4": {
+            "fonte\\": "App/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Lucas Dourado Rodrigues",
+            "email": "lucasdouradochrono@gmail.com"
+        }
+    ],
+    "require": {}
+}
